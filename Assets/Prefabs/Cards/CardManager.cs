@@ -1,3 +1,4 @@
+using Microsoft.Unity.VisualStudio.Editor;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,12 +10,12 @@ public class CardManager : MonoBehaviour
 	public CardsScriptableObject[] Cards;
 	private CardsScriptableObject Card;
 
-	public TextMeshPro Name;
-	public TextMeshPro Desc;
-	public TextMeshPro Value;
-	public TextMeshPro Move_value;
-	public GameObject Icon;
-	public GameObject Name_Bg;
+	public TextMeshProUGUI Name;
+	public TextMeshProUGUI Desc;
+	public TextMeshProUGUI Value;
+	public TextMeshProUGUI Move_value;
+	public Image Icon;
+	public Image Name_Bg;
 
 	private void Awake()
 	{
