@@ -67,14 +67,35 @@ public class DragonAI : MonoBehaviour
 
             //oceñ odleg³oœæ danej karty
             //float dist = Vector2.Distance(dragon.position, mapTiles[i].transform.position);
-            
+
 
             //oceñ iloœæ danego typu karty
+            int count = CountOfCardOnMap(mapTiles[i].currentCard);
+            
+            if(count > 1)
+            {
+                gradedTiles[i].grade += count - 1;
+            }
         }
 
 
 
         return gradedTiles;
+    }
+
+    private int CountOfCardOnMap(CardsScriptableObject card)
+    {
+        int count = 0;
+
+        foreach(TileInfo t in mapTiles)
+        {
+            if(t.currentCard == card)
+            {
+                count++;
+            }
+        }
+
+        return count;
     }
 
     public void AddMapTile(TileInfo Ntile)
