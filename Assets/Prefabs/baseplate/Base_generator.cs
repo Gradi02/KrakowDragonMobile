@@ -24,11 +24,16 @@ public class Base_generator : MonoBehaviour
 		{
 			for (int j = 0; j < size; j++)
 			{
-				yield return new WaitForSeconds(0.2f);
+				//yield return new WaitForSeconds(0.2f);
 				Image g = Instantiate(BlockPrefab, Vector3.zero, Quaternion.identity, middle);
 				g.transform.localPosition = new Vector3(i * spacing, j * spacing, 1) - centerPosition;
+
+				//dodaj do tablicy mapy w DragonAI
+				GetComponent<DragonAI>().AddMapTile(g.GetComponent<TileInfo>());
 			}
 		}
+
+		yield return null;
 	}
 }
 

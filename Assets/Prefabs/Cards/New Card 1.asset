@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_name: asd
   card_desc: 21332132223
-  value: 123
+  value: 10
   move_price: 0
   name_background: {fileID: 0}
   Icon: {fileID: 0}
