@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9787162b386876643a52bb16d30b5fe8, type: 3}
+  m_Name: New Card 2
+  m_EditorClassIdentifier: 
+  card_name: eeeee
+  card_desc: produces 2 pieeeeeeeee
+  value: 2
+  move_price: 0
+  name_background: {fileID: 0}
+  Icon: {fileID: 0}
