@@ -12,4 +12,5 @@ public class CardsScriptableObject : ScriptableObject
     public int move_price;
     public Sprite name_background;
     public Sprite Icon;
+	public Sprite CardIcon;
 }

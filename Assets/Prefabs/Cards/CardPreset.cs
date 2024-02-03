@@ -3,19 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.Presets;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardPreset : MonoBehaviour
 {
 	public CardsScriptableObject[] Cards;
 	private CardsScriptableObject Card;
 
+	public UnityEngine.UI.Image Icon;
+	public UnityEngine.UI.Image Name_Bg;
+	public Sprite CardIcon;
 	public TextMeshProUGUI Name;
 	public TextMeshProUGUI Desc;
 	public TextMeshProUGUI Value;
 	public TextMeshProUGUI Move_value;
-	public Image Icon;
-	public Image Name_Bg;
+
 
 	public GameObject Activated;
 
@@ -41,8 +45,16 @@ public class CardPreset : MonoBehaviour
 
 		else if (clicked == false)
 		{
+			List<GameObject> l = GameObject.FindGameObjectWithTag("manager").GetComponent<Card_Manager>().ListOfCards;
+
+			foreach (GameObject card in l) {
+				card.GetComponent<CardPreset>().clicked = false;
+				card.GetComponent<CardPreset>().Activated.SetActive(false);
+			}
+
 			clicked = true;
 			Activated.SetActive(true);
 		}
 	}
+
 }

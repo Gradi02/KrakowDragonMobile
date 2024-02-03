@@ -18,3 +18,4 @@ MonoBehaviour:
   move_price: 0
   name_background: {fileID: 0}
   Icon: {fileID: 0}
+  CardIcon: {fileID: -2413806693520163455, guid: 9f2fe8e55991a6c43add36fc62f33490, type: 3}
