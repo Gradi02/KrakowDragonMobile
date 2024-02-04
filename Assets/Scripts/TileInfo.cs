@@ -10,7 +10,8 @@ public class TileInfo : MonoBehaviour
     public CardsScriptableObject currentCard = null;
 	public Card_Manager Card_M;
     private bool blockedTile = false;
-    //public bool clicked = false;
+
+	private int posX=0, posY=0;
 
     private void Awake()
     {
@@ -18,13 +19,6 @@ public class TileInfo : MonoBehaviour
     }
     public void PlaceCardOnTile()
     {
-        //if (blockedTile || currentCard != null) return;
-
-		//  Pobraæ sk¹dœ aktualnie wybran¹ kartê
-		//  CardsScriptableObject selectedCard
-		//  currentCard = selectedCard;
-
-
 		//W FUNKCJI AWAKE DODA£EM REFERENCJE DO Card_M POPRZEZ TAG BO KAZDY TILE JEST PREFABEM WIEC NIE PRZYPISZEMY MU NA STA£E REFERENCJI OBIEKTU STA£EGO
 		GameObject selectedCard = Card_M.GetCard();
 
@@ -39,4 +33,12 @@ public class TileInfo : MonoBehaviour
 			Debug.Log("dupa");
 		}
 	}
+
+
+
+	public void SetPositionInfo(int xin, int yin)
+    {
+		posX = xin;
+		posY = yin;
+    }
 }
