@@ -40,11 +40,14 @@ public class Base_generator : MonoBehaviour
 
 				//dodaj do tablicy mapy w DragonAI
 				GetComponent<DragonAI>().AddMapTile(g.GetComponent<TileInfo>());
+				GetComponent<Card_Manager>().AddMapTile(g.gameObject);
 
 				//ustaw kordy pola
 				g.GetComponent<TileInfo>().SetPositionInfo(i, j);
 			}
 		}
+
+		GetComponent<GameLoopMng>().StartGameFnc();
 
 		yield return null;
 	}

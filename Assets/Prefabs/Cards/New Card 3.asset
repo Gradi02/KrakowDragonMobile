@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9787162b386876643a52bb16d30b5fe8, type: 3}
   m_Name: New Card 3
   m_EditorClassIdentifier: 
-  card_name: mine
-  card_desc: produces 2 pieces of gold after round
-  value: 2
+  card_name: sheep
+  card_desc: fake
+  value: 10
   move_price: 0
-  name_background: {fileID: 0}
-  Icon: {fileID: 0}
-  CardIcon: {fileID: -2413806693520163455, guid: 9f2fe8e55991a6c43add36fc62f33490, type: 3}
+  name_background: {fileID: 21300000, guid: fd02d76d7f768094a9e4038657adda49, type: 3}
+  Icon: {fileID: 21300000, guid: fd02d76d7f768094a9e4038657adda49, type: 3}
+  CardIcon: {fileID: 21300000, guid: fd02d76d7f768094a9e4038657adda49, type: 3}

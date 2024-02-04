@@ -8,6 +8,7 @@ public class GameLoopMng : MonoBehaviour
     [SerializeField] private Base_generator generator;
     [SerializeField] private Card_Manager manager;
     [SerializeField] private QueueGenerator queueM;
+    [SerializeField] private GameObject blocker;
     //====================
 
     private Vector2 DragonSpawnTilePos, CastleSpawnTilePos;
@@ -16,14 +17,17 @@ public class GameLoopMng : MonoBehaviour
     {
         DragonSpawnTilePos = new Vector2(generator.size - 1, 0);
         CastleSpawnTilePos = new Vector2(0, generator.size - 1);
-        //SpawnStartObjects();
+        blocker.SetActive(false);
+    }
 
+    public void StartGameFnc()
+    {
         StartCoroutine(StartGame());
     }
 
     private IEnumerator StartGame()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(1f);
         SpawnStartObjects();
 
         for (int i = 0; i < 3; i++)
@@ -48,11 +52,11 @@ public class GameLoopMng : MonoBehaviour
 
         if(queueM.IsPlayerToMove()) // ruch gracza
         {
-
+            blocker.SetActive(false);
         }
         else // ruch smoka
         {
-
+            blocker.SetActive(true);
         }
     }
 }

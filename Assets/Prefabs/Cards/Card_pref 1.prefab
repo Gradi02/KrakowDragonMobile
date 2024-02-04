@@ -65,6 +65,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b7b2201d0328b2e468d71e4dc9311474, type: 2}
   - {fileID: 11400000, guid: 66b3c2d9a6e0775478e798b0c9fb9e4e, type: 2}
   - {fileID: 11400000, guid: 6329ca21e576c414caea1c6376a467db, type: 2}
+  - {fileID: 11400000, guid: 014c5da9794ffb44aacfd38f149d0716, type: 2}
   Card: {fileID: 0}
   Icon: {fileID: 0}
   Name_Bg: {fileID: 0}
