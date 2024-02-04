@@ -302,7 +302,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &523660867
 RectTransform:
   m_ObjectHideFlags: 0
@@ -311,7 +311,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 523660866}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.92396086}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 0.25651988, y: 0.25651988, z: 0.25651988}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -319,7 +319,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.00012207031}
+  m_AnchoredPosition: {x: 0, y: 90}
   m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &949680618
@@ -605,7 +605,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1343743651
 RectTransform:
   m_ObjectHideFlags: 0
@@ -620,10 +620,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1869752975}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 90}
-  m_SizeDelta: {x: 0, y: 500}
+  m_SizeDelta: {x: 470, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1343743652
 MonoBehaviour:
@@ -816,8 +816,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BlockPrefab: {fileID: 5160211944477426192, guid: 9d8f2f1a043a3cd408d3821fb7236a55, type: 3}
   cameraobj: {fileID: 519420031}
-  middle: {fileID: 1343743651}
-  spacing: 150
+  middle: {fileID: 523660867}
+  grid: {fileID: 1869752975}
 --- !u!4 &1436750478
 Transform:
   m_ObjectHideFlags: 0
@@ -861,6 +861,7 @@ MonoBehaviour:
   RandomCard: {fileID: 454946178066712354, guid: 02fdf869f4d372949880dc5e8ffb02ba, type: 3}
   Deck: {fileID: 1933306673}
   ListOfCards: []
+  ListOfTiles: []
 --- !u!1 &1630408345
 GameObject:
   m_ObjectHideFlags: 0
