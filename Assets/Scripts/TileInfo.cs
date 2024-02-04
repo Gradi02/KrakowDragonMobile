@@ -23,14 +23,15 @@ public class TileInfo : MonoBehaviour
 		GameObject selectedCard = Card_M.GetCard();
 
 
-		if (blockedTile || selectedCard != null)
+		if (!blockedTile && selectedCard != null)
 		{
 			currentCard = selectedCard.GetComponent<CardPreset>().Card;															  
 			GetComponent<Image>().sprite = currentCard.CardIcon;
+			Card_M.DeleteSelectedCard();
 		}
 		else
 		{
-			Debug.Log("dupa");
+			Debug.Log("Pole Zablokowane lub Zajête");
 		}
 	}
 
@@ -40,5 +41,15 @@ public class TileInfo : MonoBehaviour
     {
 		posX = xin;
 		posY = yin;
+    }
+
+	public Vector2 GetTilePosition()
+    {
+		return new Vector2(posX, posY);
+    }
+
+	public void SetBlock(bool st)
+    {
+		blockedTile = st;
     }
 }

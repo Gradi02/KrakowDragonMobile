@@ -89,4 +89,11 @@ public class QueueGenerator : MonoBehaviour
 
         return Random.Range(0,2) == 0 ? false : true;
     }
+
+    public bool IsPlayerToMove()
+    {
+        if (!turns[0]) return true;
+
+        return false;
+    }
 }
