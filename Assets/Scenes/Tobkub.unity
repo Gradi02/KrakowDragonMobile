@@ -397,7 +397,7 @@ MonoBehaviour:
   BlockPrefab: {fileID: 5160211944477426192, guid: 9d8f2f1a043a3cd408d3821fb7236a55, type: 3}
   cameraobj: {fileID: 32813381}
   middle: {fileID: 1878642818}
-  spacing: 150
+  grid: {fileID: 0}
 --- !u!114 &216183887
 MonoBehaviour:
   m_ObjectHideFlags: 0
