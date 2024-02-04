@@ -4,7 +4,7 @@ using System.Collections;
 
 public class Base_generator : MonoBehaviour
 {
-	private float size = 7;
+	public int size = 7;
 	public Image BlockPrefab;
 	public Camera cameraobj;
 	public Transform middle;
