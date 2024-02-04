@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class CardPreset : MonoBehaviour
 {
 	public CardsScriptableObject[] Cards;
-	private CardsScriptableObject Card;
+	public CardsScriptableObject Card;
 
 	public UnityEngine.UI.Image Icon;
 	public UnityEngine.UI.Image Name_Bg;
@@ -56,5 +56,6 @@ public class CardPreset : MonoBehaviour
 			Activated.SetActive(true);
 		}
 	}
+
 
 }
