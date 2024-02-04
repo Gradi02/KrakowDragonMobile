@@ -28,8 +28,15 @@ public class Base_generator : MonoBehaviour
 		{
 			for (int j = 0; j < size; j++)
 			{
+				yield return new WaitForSeconds(0.05f);
 				Image g = Instantiate(BlockPrefab, Vector3.zero, Quaternion.identity, middle);
 				g.transform.localPosition = new Vector3(i * spacing, j * spacing, 1) - centerPosition;
+				g.transform.localScale = new Vector3(0, 0, 0);
+				g.transform.eulerAngles = new Vector3(transform.eulerAngles.x ,transform.eulerAngles.y , transform.eulerAngles.z + 25);
+				Vector3 target = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
+
+				LeanTween.scale(g.gameObject, new Vector3(1, 1, 1), 1f).setEase(LeanTweenType.easeOutSine);
+				LeanTween.rotate(g.gameObject, target, 0.5f).setEase(LeanTweenType.easeOutSine);
 
 				//dodaj do tablicy mapy w DragonAI
 				GetComponent<DragonAI>().AddMapTile(g.GetComponent<TileInfo>());

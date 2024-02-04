@@ -29,7 +29,7 @@ RectTransform:
   m_GameObject: {fileID: 454946178066712354}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 7, z: 1}
+  m_LocalScale: {x: 10, y: 14, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5632483843095052001}
@@ -65,14 +65,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b7b2201d0328b2e468d71e4dc9311474, type: 2}
   - {fileID: 11400000, guid: 66b3c2d9a6e0775478e798b0c9fb9e4e, type: 2}
   - {fileID: 11400000, guid: 6329ca21e576c414caea1c6376a467db, type: 2}
+  Card: {fileID: 0}
+  Icon: {fileID: 0}
+  Name_Bg: {fileID: 0}
+  CardIcon: {fileID: 0}
   Name: {fileID: 2177021070399969837}
   Desc: {fileID: 8171071759366670912}
   Value: {fileID: 8507374213335530155}
   Move_value: {fileID: 0}
-  CardOnBase: {fileID: 6481381223922029461, guid: 5d50fc193cbd0614895154992c390924, type: 3}
   Activated: {fileID: 6251712994341845467}
   clicked: 0
-  Card_M: {fileID: 0}
 --- !u!114 &2662320166818932807
 MonoBehaviour:
   m_ObjectHideFlags: 0
