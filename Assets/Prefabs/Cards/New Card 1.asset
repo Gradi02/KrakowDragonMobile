@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9787162b386876643a52bb16d30b5fe8, type: 3}
   m_Name: New Card 1
   m_EditorClassIdentifier: 
-  card_name: asd
-  card_desc: 21332132223
+  card_name: knight
+  card_desc: move along the map to deal damage
   value: 10
   move_price: 0
   name_background: {fileID: 0}
