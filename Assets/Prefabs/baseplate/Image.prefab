@@ -295,3 +295,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentCard: {fileID: 0}
   Card_M: {fileID: 0}
+  flame: {fileID: 21300000, guid: 492b9988436bd45049a9a6bc52ac8fb0, type: 3}
+  tileToMove: {fileID: 0}

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9787162b386876643a52bb16d30b5fe8, type: 3}
   m_Name: New Card 2
   m_EditorClassIdentifier: 
-  card_name: eeeee
-  card_desc: produces 2 pieeeeeeeee
-  value: 2
-  move_price: 0
-  name_background: {fileID: 0}
-  Icon: {fileID: 0}
-  CardIcon: {fileID: -2413806693520163455, guid: 9f2fe8e55991a6c43add36fc62f33490, type: 3}
+  card_name: tower
+  card_desc: shot the dragon
+  value: 6
+  move_price: 5
+  name_background: {fileID: 21300000, guid: 12712af3d5d9b6049947da3bbbf80f7a, type: 3}
+  Icon: {fileID: 21300000, guid: 12712af3d5d9b6049947da3bbbf80f7a, type: 3}
+  CardIcon: {fileID: 21300000, guid: 12712af3d5d9b6049947da3bbbf80f7a, type: 3}

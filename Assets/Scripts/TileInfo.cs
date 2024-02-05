@@ -9,33 +9,64 @@ public class TileInfo : MonoBehaviour
 {
     public CardsScriptableObject currentCard = null;
 	public Card_Manager Card_M;
-    private bool blockedTile = false;
+	public Sprite flame;
+	private bool blockedTile = false;
+	private int disabledTime = 0;
 
 	private int posX=0, posY=0;
+	public GameObject tileToMove = null;
 
-    private void Awake()
+	private void Awake()
     {
 		Card_M = GameObject.FindGameObjectWithTag("manager").GetComponent<Card_Manager>();
     }
     public void PlaceCardOnTile()
     {
-		//W FUNKCJI AWAKE DODA£EM REFERENCJE DO Card_M POPRZEZ TAG BO KAZDY TILE JEST PREFABEM WIEC NIE PRZYPISZEMY MU NA STA£E REFERENCJI OBIEKTU STA£EGO
-		GameObject selectedCard = Card_M.GetCard();
+		//Najpierw sprawdzam czy pole nie jest opcj¹ przesuniêcia
+		if (tileToMove != null)
+        {
+			currentCard = tileToMove.GetComponent<TileInfo>().currentCard;
+			GetComponent<Image>().sprite = currentCard.CardIcon;
 
+			tileToMove.GetComponent<TileInfo>().currentCard = null;
+			tileToMove.GetComponent<Image>().sprite = null;
+
+			Card_M.AfterMove();
+			return;
+		}
+
+		//Potem czy karta na tym polu mo¿e siê ruszyæ
+		if (currentCard != null)
+        {
+			int currentGold = Card_M.currentGoldCount;
+			if(currentCard.move_price > 0 && currentGold > currentCard.move_price)
+            {
+				Card_M.currentGoldCount -= currentCard.move_price;
+				Card_M.ShowMovesForPosition(new Vector2(posX,posY));
+            }
+			else
+            {
+				//potencjalnie usuwanie kart z plansze tu mo¿na daæ
+				return;
+            }
+        }
+
+
+		//Jeœli powy¿sze siê nie wykona³y to sprawdzam czy jest jakas karta wybrana do postawienia
+		GameObject selectedCard = Card_M.GetCard();
 
 		if (!blockedTile && selectedCard != null)
 		{
 			currentCard = selectedCard.GetComponent<CardPreset>().Card;															  
 			GetComponent<Image>().sprite = currentCard.CardIcon;
 			Card_M.DeleteSelectedCard();
+			Card_M.AfterMove();
 		}
 		else
 		{
 			Debug.Log("Pole Zablokowane lub Zajête");
 		}
 	}
-
-
 
 	public void SetPositionInfo(int xin, int yin)
     {
@@ -51,5 +82,45 @@ public class TileInfo : MonoBehaviour
 	public void SetBlock(bool st)
     {
 		blockedTile = st;
+    }
+
+	public void SetCard(CardsScriptableObject cardIn)
+    {
+		currentCard = cardIn;
+		GetComponent<Image>().sprite = currentCard.CardIcon;
+	}
+
+	public void RemoveCard()
+    {
+		currentCard = null;
+		GetComponent<Image>().sprite = null;
+		tileToMove = null;
+    }
+
+	public void DragonAttack()
+    {
+		RemoveCard();
+		blockedTile = true;
+		GetComponent<Image>().sprite = flame;
+		disabledTime = 4;
+	}
+
+	public void DisableCountDown()
+    {
+		if(disabledTime > 0)
+        {
+			disabledTime--;
+			
+			if(disabledTime == 0)
+            {
+				RemoveCard();
+				blockedTile = false;
+            }
+        }
+    }
+
+	public bool IfBlocked()
+    {
+		return blockedTile;
     }
 }

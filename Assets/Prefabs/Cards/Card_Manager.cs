@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class Card_Manager : MonoBehaviour
@@ -11,6 +12,7 @@ public class Card_Manager : MonoBehaviour
 	public int currentGoldCount = 1000;
 	private int cardCost = 10;
 	[SerializeField] private TextMeshProUGUI goldText;
+	public QueueGenerator queueM;
 
 	public GameObject RandomCard;
 	public Transform Deck;
@@ -20,6 +22,9 @@ public class Card_Manager : MonoBehaviour
 
 	private int CardCount = 0;
 	private int MaxCount = 6;
+
+	public Color defaultColor;
+	public Color moveColor;
 
 	public void Start()
 	{
@@ -34,7 +39,7 @@ public class Card_Manager : MonoBehaviour
 
 	public void BuyCard()
 	{
-		if (CardCount < MaxCount && currentGoldCount > cardCost)
+		if (CardCount < MaxCount && currentGoldCount >= cardCost)
 		{
 			Instantiate(RandomCard, Vector3.zero, Quaternion.identity, Deck);
 			CardCount++;
@@ -85,7 +90,7 @@ public class Card_Manager : MonoBehaviour
 	}
 
 	public void DeleteSelectedCard()
-    {
+	{
 		for (int i = 0; i < Deck.childCount; i++)
 		{
 			GameObject child = Deck.GetChild(i).gameObject;
@@ -101,7 +106,7 @@ public class Card_Manager : MonoBehaviour
 
 	public GameObject GetCard()
 	{
-		
+
 		foreach (GameObject card in ListOfCards)
 		{
 			if (card.GetComponent<CardPreset>().clicked)
@@ -113,14 +118,53 @@ public class Card_Manager : MonoBehaviour
 	}
 
 	public GameObject GetTileByPosition(Vector2 pos)
+	{
+		foreach (GameObject tile in ListOfTiles)
+		{
+
+			if (tile.GetComponent<TileInfo>().GetTilePosition() == pos)
+			{
+				
+				return tile;
+			}
+		}
+		return null;
+	}
+
+	public void ShowMovesForPosition(Vector2 pickedPosition)
+	{
+		Vector2[] moves = new Vector2[4];
+
+		moves[0] = new Vector2(pickedPosition.x + 1, pickedPosition.y);
+		moves[1] = new Vector2(pickedPosition.x - 1, pickedPosition.y);
+		moves[2] = new Vector2(pickedPosition.x, pickedPosition.y + 1);
+		moves[3] = new Vector2(pickedPosition.x, pickedPosition.y - 1);
+
+		for (int i = 0; i < 4; i++)
+		{
+			GameObject m = GetTileByPosition(moves[i]);
+
+			if (m != null)
+			{
+				if (m.GetComponent<TileInfo>().currentCard == null)
+				{
+					m.GetComponent<Image>().color = moveColor;
+					m.GetComponent<TileInfo>().tileToMove = GetTileByPosition(pickedPosition);
+				}
+			}
+		}
+	}
+
+	public TileInfo GetDragonTile()
     {
 		foreach (GameObject tile in ListOfTiles)
 		{
-			
-			if (tile.GetComponent<TileInfo>().GetTilePosition() == pos)
+			if (tile.GetComponent<TileInfo>().currentCard != null)
 			{
-				Debug.Log(tile.GetComponent<TileInfo>().GetTilePosition());
-				return tile;
+				if (tile.GetComponent<TileInfo>().currentCard.card_name == "Dragon")
+				{
+					return tile.GetComponent<TileInfo>();
+				}
 			}
 		}
 		return null;
@@ -131,8 +175,27 @@ public class Card_Manager : MonoBehaviour
 
 	}
 
-    private void Update()
-    {
+	private void Update()
+	{
 		goldText.text = "Gold: " + currentGoldCount;
-    }
+	}
+
+	public void AddMapTile(GameObject Ntile)
+	{
+		ListOfTiles.Add(Ntile);
+	}
+
+	public void AfterMove()
+	{
+		foreach (GameObject tile in ListOfTiles)
+		{
+			tile.GetComponent<TileInfo>().DisableCountDown();
+			if(tile.GetComponent<TileInfo>().tileToMove != null)
+            {
+				tile.GetComponent<Image>().color = defaultColor;
+				tile.GetComponent<TileInfo>().tileToMove = null;
+			}
+			//queueM.UpdateGameQueue();
+		}
+	}
 }
