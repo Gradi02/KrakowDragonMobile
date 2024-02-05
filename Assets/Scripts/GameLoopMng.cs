@@ -11,12 +11,15 @@ public class GameLoopMng : MonoBehaviour
     [SerializeField] private GameObject blocker;
     //====================
 
+    public CardsScriptableObject DragonCard, CastleCard;
     private Vector2 DragonSpawnTilePos, CastleSpawnTilePos;
+    private GameObject DragonTile;
+    private GameObject CastleTile;
 
     private void Start()
     {
-        DragonSpawnTilePos = new Vector2(generator.size - 1, 0);
-        CastleSpawnTilePos = new Vector2(0, generator.size - 1);
+        DragonSpawnTilePos = new Vector2(generator.size - 1, generator.size - 1);
+        CastleSpawnTilePos = new Vector2(0, 0);
         blocker.SetActive(false);
     }
 
@@ -37,13 +40,22 @@ public class GameLoopMng : MonoBehaviour
         }
     }
 
+    //Spawn smoka i zamku
     private void SpawnStartObjects()
     {
-        GameObject DragonTile = manager.GetTileByPosition(DragonSpawnTilePos);
-        GameObject CastleTile = manager.GetTileByPosition(CastleSpawnTilePos);
+        DragonTile = manager.GetTileByPosition(DragonSpawnTilePos);
+        CastleTile = manager.GetTileByPosition(CastleSpawnTilePos);
 
-        if (DragonTile != null) DragonTile.GetComponent<TileInfo>().SetBlock(true);
-        if (CastleTile != null) CastleTile.GetComponent<TileInfo>().SetBlock(true);
+        if (DragonTile != null)
+        {
+            DragonTile.GetComponent<TileInfo>().SetBlock(true);
+            DragonTile.GetComponent<TileInfo>().SetCard(DragonCard);
+        }
+        if (CastleTile != null)
+        {
+            CastleTile.GetComponent<TileInfo>().SetBlock(true);
+            CastleTile.GetComponent<TileInfo>().SetCard(CastleCard);
+        }
     }
 
     public void MoveQueue()

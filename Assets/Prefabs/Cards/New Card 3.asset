@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_name: sheep
   card_desc: fake
-  value: 10
+  value: 12
   move_price: 0
   name_background: {fileID: 21300000, guid: fd02d76d7f768094a9e4038657adda49, type: 3}
   Icon: {fileID: 21300000, guid: fd02d76d7f768094a9e4038657adda49, type: 3}
