@@ -9,7 +9,9 @@ public class TileInfo : MonoBehaviour
 {
     public CardsScriptableObject currentCard = null;
 	public Card_Manager Card_M;
-    private bool blockedTile = false;
+	public Sprite flame;
+	private bool blockedTile = false;
+	private int disabledTime = 0;
 
 	private int posX=0, posY=0;
 	public GameObject tileToMove = null;
@@ -58,6 +60,7 @@ public class TileInfo : MonoBehaviour
 			currentCard = selectedCard.GetComponent<CardPreset>().Card;															  
 			GetComponent<Image>().sprite = currentCard.CardIcon;
 			Card_M.DeleteSelectedCard();
+			Card_M.AfterMove();
 		}
 		else
 		{
@@ -79,5 +82,45 @@ public class TileInfo : MonoBehaviour
 	public void SetBlock(bool st)
     {
 		blockedTile = st;
+    }
+
+	public void SetCard(CardsScriptableObject cardIn)
+    {
+		currentCard = cardIn;
+		GetComponent<Image>().sprite = currentCard.CardIcon;
+	}
+
+	public void RemoveCard()
+    {
+		currentCard = null;
+		GetComponent<Image>().sprite = null;
+		tileToMove = null;
+    }
+
+	public void DragonAttack()
+    {
+		RemoveCard();
+		blockedTile = true;
+		GetComponent<Image>().sprite = flame;
+		disabledTime = 4;
+	}
+
+	public void DisableCountDown()
+    {
+		if(disabledTime > 0)
+        {
+			disabledTime--;
+			
+			if(disabledTime == 0)
+            {
+				RemoveCard();
+				blockedTile = false;
+            }
+        }
+    }
+
+	public bool IfBlocked()
+    {
+		return blockedTile;
     }
 }

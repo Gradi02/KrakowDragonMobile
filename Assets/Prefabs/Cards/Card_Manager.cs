@@ -12,6 +12,7 @@ public class Card_Manager : MonoBehaviour
 	public int currentGoldCount = 1000;
 	private int cardCost = 10;
 	[SerializeField] private TextMeshProUGUI goldText;
+	public QueueGenerator queueM;
 
 	public GameObject RandomCard;
 	public Transform Deck;
@@ -38,7 +39,7 @@ public class Card_Manager : MonoBehaviour
 
 	public void BuyCard()
 	{
-		if (CardCount < MaxCount && currentGoldCount > cardCost)
+		if (CardCount < MaxCount && currentGoldCount >= cardCost)
 		{
 			Instantiate(RandomCard, Vector3.zero, Quaternion.identity, Deck);
 			CardCount++;
@@ -123,7 +124,7 @@ public class Card_Manager : MonoBehaviour
 
 			if (tile.GetComponent<TileInfo>().GetTilePosition() == pos)
 			{
-				Debug.Log(tile.GetComponent<TileInfo>().GetTilePosition());
+				
 				return tile;
 			}
 		}
@@ -154,6 +155,21 @@ public class Card_Manager : MonoBehaviour
 		}
 	}
 
+	public TileInfo GetDragonTile()
+    {
+		foreach (GameObject tile in ListOfTiles)
+		{
+			if (tile.GetComponent<TileInfo>().currentCard != null)
+			{
+				if (tile.GetComponent<TileInfo>().currentCard.card_name == "Dragon")
+				{
+					return tile.GetComponent<TileInfo>();
+				}
+			}
+		}
+		return null;
+	}
+
 	public void SkipRound()
 	{
 
@@ -173,11 +189,13 @@ public class Card_Manager : MonoBehaviour
 	{
 		foreach (GameObject tile in ListOfTiles)
 		{
+			tile.GetComponent<TileInfo>().DisableCountDown();
 			if(tile.GetComponent<TileInfo>().tileToMove != null)
             {
 				tile.GetComponent<Image>().color = defaultColor;
 				tile.GetComponent<TileInfo>().tileToMove = null;
 			}
+			//queueM.UpdateGameQueue();
 		}
 	}
 }
