@@ -147,6 +147,10 @@ public class DragonAI : MonoBehaviour
                 {
                     gradedTiles[i].grade = 1;
                 }
+                else
+                {
+                    gradedTiles[i].grade = 0;
+                }
             }
 
             gradedTiles[i].info = mapTiles[i];
@@ -167,7 +171,7 @@ public class DragonAI : MonoBehaviour
                 }
             
 
-            //oceñ iloœæ danego typu karty
+                //oceñ iloœæ danego typu karty
             
                 int count = CountOfCardOnMap(mapTiles[i].currentCard);
 
