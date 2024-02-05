@@ -168,8 +168,7 @@ public class DragonAI : MonoBehaviour
                 else if (dist <= 5)
                 {
                     gradedTiles[i].grade += 1;
-                }
-            
+                }          
 
                 //oceñ iloœæ danego typu karty
             
