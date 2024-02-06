@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_name: tower
   card_desc: shot the dragon
-  value: 6
+  value: 15
   move_price: 0
   attack_power: 0
   name_background: {fileID: 21300000, guid: 12712af3d5d9b6049947da3bbbf80f7a, type: 3}

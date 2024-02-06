@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_name: mine
   card_desc: produces 2 pieces of gold after round
-  value: 3
+  value: 5
   move_price: 0
+  attack_power: 0
   name_background: {fileID: 21300000, guid: eabd3383d96672c4aa0b4d9656b5ce3e, type: 3}
   Icon: {fileID: 21300000, guid: eabd3383d96672c4aa0b4d9656b5ce3e, type: 3}
   CardIcon: {fileID: 21300000, guid: eabd3383d96672c4aa0b4d9656b5ce3e, type: 3}
