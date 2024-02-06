@@ -221,7 +221,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 412250653}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -728,7 +728,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1860360040}
   m_Father: {fileID: 1869752975}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
@@ -1579,15 +1580,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0f76ea7d9582234f972a0aa79d56754, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentGoldCount: 100
+  currentGoldCount: 10
   goldText: {fileID: 835461388}
   queueM: {fileID: 1669111590}
   RandomCard: {fileID: 454946178066712354, guid: 02fdf869f4d372949880dc5e8ffb02ba, type: 3}
   Deck: {fileID: 1933306673}
   ListOfCards: []
   ListOfTiles: []
-  defaultColor: {r: 1, g: 1, b: 1, a: 0.78431374}
-  moveColor: {r: 0.6132076, g: 0.35519758, b: 0.35519758, a: 0.78431374}
+  defaultColor: {r: 0.9490196, g: 0.83137256, b: 0.59607846, a: 0.78431374}
+  moveColor: {r: 0.35686275, g: 0.6117647, b: 0.3976652, a: 0.78431374}
+  attackColor: {r: 0.6320754, g: 0.10971874, b: 0.10971874, a: 0.78431374}
 --- !u!114 &1436750481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1604,6 +1606,8 @@ MonoBehaviour:
   manager: {fileID: 1436750480}
   queueM: {fileID: 1669111590}
   blocker: {fileID: 412250653}
+  goldIncomeSpawner: {fileID: 1860360040}
+  incomePref: {fileID: 1752236569941588232, guid: 2108535bfe2eef44ca8043f58344cb91, type: 3}
   DragonCard: {fileID: 11400000, guid: 05e839857aece2c488dcc6cda28f6954, type: 2}
   CastleCard: {fileID: 11400000, guid: 988d4d26e9160f04e959901244390b9d, type: 2}
 --- !u!1 &1630408345
@@ -2175,7 +2179,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1828475778
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2242,7 +2246,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1436750479}
         m_TargetAssemblyTypeName: DragonAI, Assembly-CSharp
-        m_MethodName: DragonQueueTurn
+        m_MethodName: SwitchDragonLoop
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2424,6 +2428,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1851277649}
   m_CullTransparentMesh: 1
+--- !u!1 &1860360039
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1860360040}
+  m_Layer: 5
+  m_Name: spawnTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1860360040
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860360039}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 835461387}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 110, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1869752971
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameLoopMng : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class GameLoopMng : MonoBehaviour
     [SerializeField] private Card_Manager manager;
     [SerializeField] private QueueGenerator queueM;
     [SerializeField] private GameObject blocker;
+    [SerializeField] private Transform goldIncomeSpawner;
+    [SerializeField] private GameObject incomePref;
     //====================
 
     public CardsScriptableObject DragonCard, CastleCard;
@@ -20,7 +23,7 @@ public class GameLoopMng : MonoBehaviour
     {
         DragonSpawnTilePos = new Vector2(generator.size - 1, generator.size - 1);
         CastleSpawnTilePos = new Vector2(0, 0);
-        blocker.SetActive(false);
+        blocker.SetActive(true);
     }
 
     public void StartGameFnc()
@@ -38,7 +41,11 @@ public class GameLoopMng : MonoBehaviour
             yield return new WaitForSeconds(0.4f);
             manager.GiveFreeCard();
         }
+
+        blocker.SetActive(false);
+        //Animacja startu
     }
+
 
     //Spawn smoka i zamku
     private void SpawnStartObjects()
@@ -58,17 +65,52 @@ public class GameLoopMng : MonoBehaviour
         }
     }
 
-    public void MoveQueue()
+    public void GameOver()
+    {
+        Debug.Log("Lose");
+    }
+
+    public void PlayerMoved()
     {
         queueM.UpdateGameQueue();
+        CalculateGoldIncome();
 
-        if(queueM.IsPlayerToMove()) // ruch gracza
+        if (!queueM.IsPlayerToMove())
         {
-            blocker.SetActive(false);
+            StartCoroutine(DragonMove());
         }
-        else // ruch smoka
+    }
+
+    private IEnumerator DragonMove()
+    {
+        blocker.SetActive(true);
+        yield return new WaitForSeconds(2f);
+
+        //animacja ataku czy cos
+
+        while (!queueM.IsPlayerToMove())
         {
-            blocker.SetActive(true);
+            DragonTurn();
+            yield return new WaitForSeconds(2f);
         }
+
+        blocker.SetActive(false);
+
+    }
+
+    private void DragonTurn()
+    {
+        GetComponent<DragonAI>().DragonQueueTurn();
+        queueM.UpdateGameQueue();
+        CalculateGoldIncome();
+    }
+
+    private void CalculateGoldIncome()
+    {
+        int income = GetComponent<Card_Manager>().CalcGoldIncome();
+
+        GameObject inc = Instantiate(incomePref, Vector3.zero, Quaternion.identity, goldIncomeSpawner);
+        inc.transform.localPosition = Vector3.zero;
+        inc.GetComponent<TextMeshProUGUI>().text = "+" + income;
     }
 }

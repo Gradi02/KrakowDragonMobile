@@ -16,6 +16,7 @@ MonoBehaviour:
   card_desc: move along the map to deal damage
   value: 5
   move_price: 5
+  attack_power: 3
   name_background: {fileID: 21300000, guid: 4c8531cf2506916449a5027cd65e24a0, type: 3}
   Icon: {fileID: 21300000, guid: 4c8531cf2506916449a5027cd65e24a0, type: 3}
   CardIcon: {fileID: 21300000, guid: 4c8531cf2506916449a5027cd65e24a0, type: 3}

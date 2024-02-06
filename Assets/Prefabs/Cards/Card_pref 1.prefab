@@ -67,7 +67,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6329ca21e576c414caea1c6376a467db, type: 2}
   - {fileID: 11400000, guid: 014c5da9794ffb44aacfd38f149d0716, type: 2}
   Card: {fileID: 0}
-  Icon: {fileID: 0}
+  Icon: {fileID: 819712596689050727}
   Name_Bg: {fileID: 0}
   CardIcon: {fileID: 0}
   Name: {fileID: 2177021070399969837}
@@ -585,7 +585,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.32156864, g: 0.07450981, b: 0.07450981, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

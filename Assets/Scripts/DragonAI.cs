@@ -9,6 +9,9 @@ public class DragonAI : MonoBehaviour
     private GameLoopMng mng;
     private Vector2[] moves = new Vector2[4];
     private int moveChance = 5;
+    private bool end = false;
+    private int movesCounter = 0;
+    private int DragonHealth = 100;
 
     private void Awake()
     {
@@ -22,17 +25,39 @@ public class DragonAI : MonoBehaviour
         public bool move; // 0-att || 1-move
     }
 
+    bool switchDragon = false;
+    public void SwitchDragonLoop()
+    {
+        switchDragon = !switchDragon;
+    }
 
-
+    private void FixedUpdate()
+    {
+        if(switchDragon)
+        {
+            DragonQueueTurn();
+        }
+    }
 
     public void DragonQueueTurn()
     {
+        if (end) return;
+
         GradedTiles pickedmove = PickMove();
-        GetComponent<Card_Manager>().AfterMove();
-        Debug.Log(pickedmove.move + " Pozycja: " + pickedmove.info.GetTilePosition() + " Ocena: " + pickedmove.grade);
+        Debug.Log(pickedmove.move + " Pozycja: " + pickedmove.info.GetTilePosition() + " Ocena: " + pickedmove.grade + " pole: " + pickedmove.info.IfBlocked() + " ruchy: " + movesCounter++);
 
         if (pickedmove.move)
         {
+            if(pickedmove.info.currentCard != null)
+            {
+                if(pickedmove.info.currentCard.card_name == "Castle")
+                {
+                    mng.GameOver();
+                    end = true;
+                    return;
+                }
+            }
+
             TileInfo lastDragonCard = GetComponent<Card_Manager>().GetDragonTile();
             pickedmove.info.SetCard(lastDragonCard.currentCard);
             lastDragonCard.RemoveCard();
@@ -41,6 +66,7 @@ public class DragonAI : MonoBehaviour
         {
             pickedmove.info.DragonAttack();
         }
+        GetComponent<Card_Manager>().AfterDragon();
     }
 
     private GradedTiles PickMove()
@@ -147,6 +173,10 @@ public class DragonAI : MonoBehaviour
                 {
                     gradedTiles[i].grade = 1;
                 }
+                else
+                {
+                    gradedTiles[i].grade = 0;
+                }
             }
 
             gradedTiles[i].info = mapTiles[i];
@@ -164,10 +194,9 @@ public class DragonAI : MonoBehaviour
                 else if (dist <= 5)
                 {
                     gradedTiles[i].grade += 1;
-                }
-            
+                }          
 
-            //oceñ iloœæ danego typu karty
+                //oceñ iloœæ danego typu karty
             
                 int count = CountOfCardOnMap(mapTiles[i].currentCard);
 
@@ -211,9 +240,10 @@ public class DragonAI : MonoBehaviour
 
         for (int i=0; i<4; i++)
         {
-            if (manager.GetTileByPosition(moves[i]) != null)
+            GameObject mi = manager.GetTileByPosition(moves[i]);
+            if (mi != null)
             {
-                if (manager.GetTileByPosition(moves[i]).GetComponent<TileInfo>().currentCard == null)
+                if (mi.GetComponent<TileInfo>().currentCard == null && !mi.GetComponent<TileInfo>().IfBlocked())
                 {
                     return true;
                 }
@@ -233,13 +263,21 @@ public class DragonAI : MonoBehaviour
             gradedTiles[i].grade = 0;
             gradedTiles[i].move = true;
 
-            if (manager.GetTileByPosition(moves[i]) != null)
+            GameObject mi = manager.GetTileByPosition(moves[i]);
+            if (mi != null)
             {
-                gradedTiles[i].info = manager.GetTileByPosition(moves[i]).GetComponent<TileInfo>();
+                gradedTiles[i].info = mi.GetComponent<TileInfo>();
 
-                if (gradedTiles[i].info.currentCard == null)
+                if (gradedTiles[i].info.currentCard == null && !gradedTiles[i].info.IfBlocked())
                 {
                     gradedTiles[i].grade = 2;
+                }
+                else if(gradedTiles[i].info.currentCard != null)
+                {
+                    if(gradedTiles[i].info.currentCard.card_name == "Castle")
+                    {
+                        gradedTiles[i].grade = 10;
+                    }
                 }
             }
         }
@@ -250,7 +288,7 @@ public class DragonAI : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
-            if (gradedTiles[i].info != null && gradedTiles[i].info.currentCard == null)
+            if (gradedTiles[i].info != null && gradedTiles[i].info.currentCard == null && !gradedTiles[i].info.IfBlocked())
             {
                 float g_i = gradedTiles[i].info.GetTilePosition().x + gradedTiles[i].info.GetTilePosition().y;
 
@@ -262,6 +300,12 @@ public class DragonAI : MonoBehaviour
         }
 
         return gradedTiles;
+    }
+
+    public void DamageToDragon(int n)
+    {
+        DragonHealth -= n;
+        Debug.Log("HP: " + DragonHealth);
     }
 
     public void AddMapTile(TileInfo Ntile)
