@@ -25,6 +25,20 @@ public class TileInfo : MonoBehaviour
 		//Najpierw sprawdzam czy pole nie jest opcj¹ przesuniêcia
 		if (tileToMove != null)
         {
+			Card_M.currentGoldCount -= tileToMove.GetComponent<TileInfo>().currentCard.move_price;
+
+			if (currentCard != null)
+            {
+				if(currentCard.card_name == "Dragon")
+                {
+					GameObject.FindGameObjectWithTag("manager").GetComponent<DragonAI>().DamageToDragon(
+						tileToMove.GetComponent<TileInfo>().currentCard.attack_power);
+					Card_M.HideMoves();
+					Card_M.AfterMove();
+					return;
+                }
+            }
+
 			currentCard = tileToMove.GetComponent<TileInfo>().currentCard;
 			GetComponent<Image>().sprite = currentCard.CardIcon;
 
@@ -41,7 +55,7 @@ public class TileInfo : MonoBehaviour
 			int currentGold = Card_M.currentGoldCount;
 			if(currentCard.move_price > 0 && currentGold > currentCard.move_price)
             {
-				Card_M.currentGoldCount -= currentCard.move_price;
+				Card_M.HideMoves();
 				Card_M.ShowMovesForPosition(new Vector2(posX,posY));
             }
 			else

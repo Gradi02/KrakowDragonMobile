@@ -10,6 +10,7 @@ public class CardsScriptableObject : ScriptableObject
     public string card_desc;
     public int value;
     public int move_price;
+    public int attack_power;
     public Sprite name_background;
     public Sprite Icon;
 	public Sprite CardIcon;

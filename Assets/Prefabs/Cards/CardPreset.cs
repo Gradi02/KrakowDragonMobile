@@ -33,6 +33,7 @@ public class CardPreset : MonoBehaviour
 		Name.text = Card.card_name;
 		Desc.text = Card.card_desc;
 		Value.text = Card.value.ToString();
+		Icon.sprite = Card.CardIcon;
 	}
 
 	public void Click()

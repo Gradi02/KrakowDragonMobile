@@ -9,8 +9,10 @@ using TMPro;
 
 public class Card_Manager : MonoBehaviour
 {
-	public int currentGoldCount = 1000;
+	public int currentGoldCount = 10;
 	private int cardCost = 10;
+	private int mineIncomeForRound = 2;
+	private int defaultIncome = 5;
 	[SerializeField] private TextMeshProUGUI goldText;
 	public QueueGenerator queueM;
 
@@ -25,6 +27,7 @@ public class Card_Manager : MonoBehaviour
 
 	public Color defaultColor;
 	public Color moveColor;
+	public Color attackColor;
 
 	public void Start()
 	{
@@ -151,9 +154,23 @@ public class Card_Manager : MonoBehaviour
 					m.GetComponent<Image>().color = moveColor;
 					m.GetComponent<TileInfo>().tileToMove = GetTileByPosition(pickedPosition);
 				}
+				else if(m.GetComponent<TileInfo>().currentCard.card_name == "Dragon")
+                {
+					m.GetComponent<Image>().color = attackColor;
+					m.GetComponent<TileInfo>().tileToMove = GetTileByPosition(pickedPosition);
+				}
 			}
 		}
 	}
+
+	public void HideMoves()
+    {
+		foreach(GameObject t in ListOfTiles)
+        {
+			t.GetComponent<TileInfo>().tileToMove = null;
+			t.GetComponent<Image>().color = defaultColor;
+        }
+    }
 
 	public TileInfo GetDragonTile()
     {
@@ -175,6 +192,28 @@ public class Card_Manager : MonoBehaviour
 
 	}
 
+	public int CalcGoldIncome()
+	{
+		int num = 0;
+		foreach(GameObject tile in ListOfTiles)
+        {
+			CardsScriptableObject c = tile.GetComponent<TileInfo>().currentCard;
+
+			if (c != null)
+            {
+				if(c.card_name == "mine")
+                {
+					num++;
+                }
+            }
+        }
+
+		int income = num * mineIncomeForRound + defaultIncome;
+		currentGoldCount += income;
+		return income;
+	}
+
+
 	private void Update()
 	{
 		goldText.text = "Gold: " + currentGoldCount;
@@ -195,7 +234,15 @@ public class Card_Manager : MonoBehaviour
 				tile.GetComponent<Image>().color = defaultColor;
 				tile.GetComponent<TileInfo>().tileToMove = null;
 			}
-			//queueM.UpdateGameQueue();
+		}
+		GetComponent<GameLoopMng>().PlayerMoved();
+	}
+
+	public void AfterDragon()
+	{
+		foreach (GameObject tile in ListOfTiles)
+		{
+			tile.GetComponent<TileInfo>().DisableCountDown();
 		}
 	}
 }
