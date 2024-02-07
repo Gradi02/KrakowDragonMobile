@@ -55,8 +55,11 @@ public class DragonAI : MonoBehaviour
                 }
             }
 
+
             TileInfo lastDragonCard = GetComponent<Card_Manager>().GetDragonTile();
+            lastDragonCard.SetBlock(false);
             pickedmove.info.SetCard(lastDragonCard.currentCard);
+            pickedmove.info.SetBlock(true);
             lastDragonCard.RemoveCard();
         }
         else

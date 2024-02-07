@@ -209,10 +209,28 @@ public class Card_Manager : MonoBehaviour
         }
 
 		int income = num * mineIncomeForRound + defaultIncome;
-		currentGoldCount += income;
+		//currentGoldCount += income;
+		StartCoroutine(GoldAnimation(income));
 		return income;
 	}
 
+	private IEnumerator GoldAnimation(int income)
+    {
+		yield return new WaitForSeconds(0.5f);
+		int added = 0;
+		while(added < income)
+        {
+			currentGoldCount++;
+			added++;
+			yield return new WaitForSeconds(1f/income);
+
+			if(income - added <= (1/5 * income))
+            {
+				float time = 1f - ((float)(income - added) / 10f);
+				yield return new WaitForSeconds(time);
+			}
+        }
+    }
 
 	private void Update()
 	{

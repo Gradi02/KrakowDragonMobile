@@ -10,6 +10,7 @@ public class QueueGenerator : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Transform queueBar;
+    private GameLoopMng mng;
 
     [Header("Parameters")]
     private const int queueCount = 7;
@@ -25,6 +26,7 @@ public class QueueGenerator : MonoBehaviour
     private void Start()
     {
         GenerateGameQueue();
+        mng = GameObject.FindGameObjectWithTag("manager").GetComponent<GameLoopMng>();
     }
 
     //Generuje pocz¹tkow¹ kolejkê gry
@@ -63,6 +65,15 @@ public class QueueGenerator : MonoBehaviour
 
 
         //aktualizacja ikon tury
+        StartCoroutine(QueueUpdateAnimation());
+    }
+
+    private IEnumerator QueueUpdateAnimation()
+    {
+        LeanTween.scale(turnsIcons[0].gameObject, Vector3.zero, 1f).setEase(LeanTweenType.easeInCubic);
+        LeanTween.rotate(turnsIcons[0].gameObject, new Vector3(0, 0, -40), 1f).setEase(LeanTweenType.easeInCubic);
+        yield return new WaitForSeconds(1.1f);
+
         Destroy(turnsIcons[0].gameObject);
 
         for (int i = 0; i < queueCount - 1; i++)
@@ -70,9 +81,9 @@ public class QueueGenerator : MonoBehaviour
             turnsIcons[i] = turnsIcons[i + 1];
         }
 
-        turnsIcons[queueCount-1] = Instantiate(turns[queueCount-1] == false ? queuePlayerTurnPrefab : queueDragonTurnPrefab, queueBar.position, Quaternion.identity, queueBar).transform;
+        turnsIcons[queueCount - 1] = Instantiate(turns[queueCount - 1] == false ? queuePlayerTurnPrefab : queueDragonTurnPrefab, queueBar.position, Quaternion.identity, queueBar).transform;
+        mng.SetBlocker(false);
     }
-
 
     //Wylosuj now¹ ture
     private bool PickNextTurn(int n)
