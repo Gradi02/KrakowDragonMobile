@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class DragonAI : MonoBehaviour
 {
@@ -12,6 +14,8 @@ public class DragonAI : MonoBehaviour
     private bool end = false;
     private int movesCounter = 0;
     private int DragonHealth = 100;
+    [SerializeField] private Slider hpslider;
+    [SerializeField] private TextMeshProUGUI hptext;
 
     private void Awake()
     {
@@ -25,18 +29,11 @@ public class DragonAI : MonoBehaviour
         public bool move; // 0-att || 1-move
     }
 
-    bool switchDragon = false;
-    public void SwitchDragonLoop()
-    {
-        switchDragon = !switchDragon;
-    }
 
-    private void FixedUpdate()
+    private void UpdateDragonHpStats()
     {
-        if(switchDragon)
-        {
-            DragonQueueTurn();
-        }
+        hpslider.value = DragonHealth;
+        hptext.text = DragonHealth + " / " + hpslider.maxValue;
     }
 
     public void DragonQueueTurn()
@@ -305,7 +302,7 @@ public class DragonAI : MonoBehaviour
     public void DamageToDragon(int n)
     {
         DragonHealth -= n;
-        Debug.Log("HP: " + DragonHealth);
+        UpdateDragonHpStats();
     }
 
     public void AddMapTile(TileInfo Ntile)
