@@ -72,6 +72,7 @@ public class GameLoopMng : MonoBehaviour
 
     public void PlayerMoved()
     {
+        blocker.SetActive(true);
         queueM.UpdateGameQueue();
         CalculateGoldIncome();
 
@@ -112,5 +113,10 @@ public class GameLoopMng : MonoBehaviour
         GameObject inc = Instantiate(incomePref, Vector3.zero, Quaternion.identity, goldIncomeSpawner);
         inc.transform.localPosition = Vector3.zero;
         inc.GetComponent<TextMeshProUGUI>().text = "+" + income;
+    }
+
+    public void SetBlocker(bool bin)
+    {
+        blocker.SetActive(bin);
     }
 }
