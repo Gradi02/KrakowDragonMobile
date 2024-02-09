@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -38,6 +39,11 @@ public class CardPreset : MonoBehaviour
 		{
 			clicked = false;
 			Activated.SetActive(false);
+
+			//////////
+			StopAllCoroutines();
+			gameObject.transform.rotation = Quaternion.identity;
+			//////////
 		}
 
 		else if (clicked == false)
@@ -47,12 +53,29 @@ public class CardPreset : MonoBehaviour
 			foreach (GameObject card in l) {
 				card.GetComponent<CardPreset>().clicked = false;
 				card.GetComponent<CardPreset>().Activated.SetActive(false);
+
+				///////////
+				StopAllCoroutines();
+				card.transform.rotation = Quaternion.identity;
+				///////////
 			}
 
 			clicked = true;
 			Activated.SetActive(true);
+			//////////////
+			StartCoroutine(PickedCard());
+		    //////////////
 		}
 	}
 
-
+	public IEnumerator PickedCard()
+	{
+		while (true)
+		{
+			LeanTween.rotateZ(gameObject.gameObject, 2, 0.2f);
+			yield return new WaitForSeconds(0.21f);
+			LeanTween.rotateZ(gameObject.gameObject, -2, 0.2f);
+			yield return new WaitForSeconds(0.21f);
+		}
+	}
 }
