@@ -20,52 +20,72 @@ public class Animations : MonoBehaviour
 	UnityEngine.UI.Image c1;
 	UnityEngine.UI.Image c2;
 	UnityEngine.UI.Image bg;
-	public void Start()
+
+	private float time = 0.2f;
+	public void Awake()
 	{
 		menu.SetActive(false);
 		c1 = corner1.gameObject.GetComponent<UnityEngine.UI.Image>();
 		c2 = corner2.gameObject.GetComponent<UnityEngine.UI.Image>();
 		bg = background.gameObject.GetComponent<UnityEngine.UI.Image>();
-
-		StartCoroutine(TurnPlayer());
+		turn.gameObject.transform.localScale = new Vector3(0, 0, 0);
 	}
-
-	IEnumerator TurnPlayer()
+	//tura gracza anim
+	public IEnumerator TurnPlayerEnum()
 	{
 		menu.SetActive(true);
-		Show();
 		turn.text = "Yours Turn";
-		c1.color = new Color(0, 255, 44);
-		c2.color = new Color(0, 255, 44);
+		turn.color = new Color(0, 255, 0);
+		c1.color = new Color(0, 255, 0);
+		c2.color = new Color(0, 255, 0);
+		Show();
 		yield return new WaitForSeconds(2f);
 		Hide();
-		yield return new WaitForSeconds(1.1f);
+		yield return new WaitForSeconds(time+0.05f);
 		menu.SetActive(false);
 	}
-	IEnumerator TurnDragon()
+
+	//tura smoka anim
+	public IEnumerator TurnDragonEnum()
 	{
 		menu.SetActive(true);
-		Show();
 		turn.text = "Dragons Turn";
+		turn.color = new Color(255, 0, 0);
 		c1.color = new Color(255, 0, 0);
 		c2.color = new Color(255, 0, 0);
+		Show();
 		yield return new WaitForSeconds(2f);
 		Hide();
-		yield return new WaitForSeconds(1.1f);
+		yield return new WaitForSeconds(time+0.05f);
 		menu.SetActive(false);
 	}
 
+	//pokazywanie
 	public void Show()
 	{
-		LeanTween.alpha(c1.rectTransform, 1f, 1f);
-		LeanTween.alpha(c2.rectTransform, 1f, 1f);
-		LeanTween.alpha(bg.rectTransform, 0.3f, 1f);
+		LeanTween.alpha(c1.rectTransform, 1f, time);
+		LeanTween.alpha(c2.rectTransform, 1f, time);
+		LeanTween.alpha(bg.rectTransform, 0.6f, time);
+		LeanTween.scale(turn.gameObject, new Vector3(1f, 1f, 1f), time).setEase(LeanTweenType.easeInCubic);
 	}
 
+	//chowanie
 	public void Hide()
 	{
-		LeanTween.alpha(c1.rectTransform, 0, 1f);
-		LeanTween.alpha(c2.rectTransform, 0, 1f);
-		LeanTween.alpha(bg.rectTransform, 0, 1f);
+		LeanTween.alpha(c1.rectTransform, 0, time);
+		LeanTween.alpha(c2.rectTransform, 0, time);
+		LeanTween.alpha(bg.rectTransform, 0, time);
+		LeanTween.scale(turn.gameObject, new Vector3(0f, 0f, 0f), time).setEase(LeanTweenType.easeInCubic);
+	}
+
+
+	public void PlayerTurn()
+	{
+		StartCoroutine(TurnPlayerEnum());
+	}
+
+	public void DragonTurn()
+	{
+		StartCoroutine(TurnDragonEnum());
 	}
 }

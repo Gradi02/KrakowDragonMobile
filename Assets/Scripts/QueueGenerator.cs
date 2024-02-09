@@ -16,9 +16,8 @@ public class QueueGenerator : MonoBehaviour
     private const int queueCount = 7;
     private bool[] turns = new bool[queueCount]; //0-ty & 1-smok
     private Transform[] turnsIcons = new Transform[queueCount];
-    
-    
-    
+
+
     
     
     
