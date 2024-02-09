@@ -103,6 +103,7 @@ public class TileInfo : MonoBehaviour
     {
 		currentCard = cardIn;
 		GetComponent<Image>().sprite = currentCard.CardIcon;
+		GetComponent<Animator>().enabled = false;
 	}
 
 	public void RemoveCard()
@@ -117,6 +118,8 @@ public class TileInfo : MonoBehaviour
 		RemoveCard();
 		blockedTile = true;
 		GetComponent<Image>().sprite = flame;
+		GetComponent<Animator>().enabled = true;
+		GetComponent<Animator>().SetBool("fire", true);
 		disabledTime = 4;
 	}
 
@@ -130,7 +133,9 @@ public class TileInfo : MonoBehaviour
             {
 				RemoveCard();
 				blockedTile = false;
-            }
+				GetComponent<Animator>().SetBool("fire", false);
+				GetComponent<Animator>().enabled = false;
+			}
         }
     }
 
