@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,49 +34,52 @@ public class CardPreset : MonoBehaviour
 		Icon.sprite = Card.CardIcon;
 	}
 
+	public void Start()
+	{
+		this.gameObject.transform.localScale = new Vector3(0,0,0);
+		LeanTween.scale(this.gameObject, new Vector3(10, 14, 1), 0.3f);
+	}
+
 	public void Click()
 	{
 		if (clicked == true)
 		{
 			clicked = false;
 			Activated.SetActive(false);
-
-			//////////
-			StopAllCoroutines();
-			gameObject.transform.rotation = Quaternion.identity;
-			//////////
 		}
 
+		//AKTYWACJA
 		else if (clicked == false)
 		{
 			List<GameObject> l = GameObject.FindGameObjectWithTag("manager").GetComponent<Card_Manager>().ListOfCards;
 
-			foreach (GameObject card in l) {
+			foreach (GameObject card in l)
+			{
 				card.GetComponent<CardPreset>().clicked = false;
-				card.GetComponent<CardPreset>().Activated.SetActive(false);
-
-				///////////
-				StopAllCoroutines();
-				card.transform.rotation = Quaternion.identity;
-				///////////
+				//card.GetComponent<CardPreset>().Activated.SetActive(false);
+ 
 			}
-
 			clicked = true;
-			Activated.SetActive(true);
-			//////////////
 			StartCoroutine(PickedCard());
-		    //////////////
+
 		}
 	}
-
 	public IEnumerator PickedCard()
 	{
-		while (true)
+		while (clicked == true)
 		{
-			LeanTween.rotateZ(gameObject.gameObject, 2, 0.2f);
-			yield return new WaitForSeconds(0.21f);
-			LeanTween.rotateZ(gameObject.gameObject, -2, 0.2f);
-			yield return new WaitForSeconds(0.21f);
+			LeanTween.rotateZ(gameObject, 2, 0.1f);
+			yield return new WaitForSeconds(0.11f);
+
+			LeanTween.rotateZ(gameObject, 0, 0.1f);
+			yield return new WaitForSeconds(0.11f);
+
+			LeanTween.rotateZ(gameObject, -2, 0.1f);
+			yield return new WaitForSeconds(0.11f);
+
+			LeanTween.rotateZ(gameObject, 0, 0.1f);
+			yield return new WaitForSeconds(0.11f);
 		}
+		
 	}
 }
