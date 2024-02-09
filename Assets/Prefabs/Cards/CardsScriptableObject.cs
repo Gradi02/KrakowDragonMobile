@@ -14,4 +14,5 @@ public class CardsScriptableObject : ScriptableObject
     public Sprite name_background;
     public Sprite Icon;
 	public Sprite CardIcon;
+    public int dropChance;
 }

@@ -12,6 +12,7 @@ public class GameLoopMng : MonoBehaviour
     [SerializeField] private GameObject blocker;
     [SerializeField] private Transform goldIncomeSpawner;
     [SerializeField] private GameObject incomePref;
+    [SerializeField] private GameObject startCanva;
     //====================
 
     public CardsScriptableObject DragonCard, CastleCard;
@@ -75,6 +76,12 @@ public class GameLoopMng : MonoBehaviour
         blocker.SetActive(true);
         queueM.UpdateGameQueue();
         CalculateGoldIncome();
+        manager.TowersShot();
+
+        if(GetComponent<DragonAI>().CheckForPlayerWin())
+        {
+            //win
+        }
 
         if (!queueM.IsPlayerToMove())
         {
@@ -96,7 +103,6 @@ public class GameLoopMng : MonoBehaviour
         }
 
         blocker.SetActive(false);
-
     }
 
     private void DragonTurn()
@@ -118,5 +124,11 @@ public class GameLoopMng : MonoBehaviour
     public void SetBlocker(bool bin)
     {
         blocker.SetActive(bin);
+    }
+
+    public void StartGameButton()
+    {
+        LeanTween.moveLocal(startCanva, new Vector3(0, 1100, 0), 1f).setEase(LeanTweenType.easeInCirc).destroyOnComplete = true; 
+        GetComponent<Base_generator>().StartGame();
     }
 }

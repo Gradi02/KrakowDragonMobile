@@ -13,7 +13,7 @@ public class Base_generator : MonoBehaviour
 	private float spacing = 200;
 	private float blockSize = 100;
 
-	void Start()
+	public void StartGame()
 	{
 		StartCoroutine(MapGenerator());
 	}

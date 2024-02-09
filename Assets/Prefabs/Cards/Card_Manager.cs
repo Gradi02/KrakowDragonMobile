@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,9 +8,9 @@ using TMPro;
 public class Card_Manager : MonoBehaviour
 {
 	public int currentGoldCount = 10;
-	private int cardCost = 10;
-	private int mineIncomeForRound = 2;
-	private int defaultIncome = 5;
+	private int cardCost = 15;
+	private int mineIncomeForRound = 1;
+	private int defaultIncome = 2;
 	[SerializeField] private TextMeshProUGUI goldText;
 	public QueueGenerator queueM;
 
@@ -21,6 +19,8 @@ public class Card_Manager : MonoBehaviour
 	public List<GameObject> ListOfCards = new List<GameObject>();
 
 	public List<GameObject> ListOfTiles = new List<GameObject>();
+
+	public List<CardsScriptableObject> ListOfPickedCard = new List<CardsScriptableObject>();
 
 	private int CardCount = 0;
 	private int MaxCount = 6;
@@ -31,14 +31,48 @@ public class Card_Manager : MonoBehaviour
 
 	public void Start()
 	{
+		/*
 		ListOfTiles.Clear();
 		GameObject[] FoundTiles = GameObject.FindGameObjectsWithTag("tile");
 		foreach (GameObject obj in FoundTiles)
 		{
 			ListOfTiles.Add(obj);
 		}
-		Debug.Log(ListOfTiles.Count);
+		Debug.Log(ListOfTiles.Count);*/
 	}
+
+	public CardsScriptableObject GetRandomCardFromPickedList()
+    {
+		if (ListOfPickedCard.Count > 0)
+		{
+			int sum = 0;
+			foreach (var g in ListOfPickedCard)
+			{
+				sum += g.dropChance;
+			}
+
+			int chance = Random.Range(0, sum - 1);
+			foreach (CardsScriptableObject g in ListOfPickedCard)
+			{
+				if (chance < g.dropChance)
+				{
+					return g;
+				}
+				else
+				{
+					chance -= g.dropChance;
+				}
+			}
+
+			CardsScriptableObject card = ListOfPickedCard[Random.Range(0, ListOfPickedCard.Count - 1)];
+			return card;
+		}
+        else
+        {
+			Debug.Log("koniec kart");
+			return null;
+        }
+    }
 
 	public void BuyCard()
 	{
@@ -189,9 +223,25 @@ public class Card_Manager : MonoBehaviour
 
 	public void SkipRound()
 	{
-
+		AfterMove();
 	}
 
+	public void TowersShot()
+	{
+		foreach (GameObject tile in ListOfTiles)
+		{
+			CardsScriptableObject c = tile.GetComponent<TileInfo>().currentCard;
+
+			if (c != null)
+			{
+				if (c.card_name == "tower")
+				{
+					//animacja strza³u
+					GetComponent<DragonAI>().DamageToDragon(2);
+				}
+			}
+		}
+    }
 	public int CalcGoldIncome()
 	{
 		int num = 0;
