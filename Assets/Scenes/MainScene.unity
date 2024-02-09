@@ -877,7 +877,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &430040473
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3310,7 +3310,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1368696154
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3538,6 +3538,7 @@ MonoBehaviour:
   goldIncomeSpawner: {fileID: 1860360040}
   incomePref: {fileID: 1752236569941588232, guid: 2108535bfe2eef44ca8043f58344cb91, type: 3}
   startCanva: {fileID: 718212032}
+  anim: {fileID: 1436750482}
   DragonCard: {fileID: 11400000, guid: 05e839857aece2c488dcc6cda28f6954, type: 2}
   CastleCard: {fileID: 11400000, guid: 988d4d26e9160f04e959901244390b9d, type: 2}
 --- !u!114 &1436750482

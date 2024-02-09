@@ -31,7 +31,7 @@ public class Animations : MonoBehaviour
 		turn.gameObject.transform.localScale = new Vector3(0, 0, 0);
 	}
 	//tura gracza anim
-	public IEnumerator TurnPlayerEnum()
+	private IEnumerator TurnPlayerEnum()
 	{
 		menu.SetActive(true);
 		turn.text = "Yours Turn";
@@ -46,7 +46,7 @@ public class Animations : MonoBehaviour
 	}
 
 	//tura smoka anim
-	public IEnumerator TurnDragonEnum()
+	private IEnumerator TurnDragonEnum()
 	{
 		menu.SetActive(true);
 		turn.text = "Dragons Turn";
@@ -58,6 +58,12 @@ public class Animations : MonoBehaviour
 		Hide();
 		yield return new WaitForSeconds(time+0.05f);
 		menu.SetActive(false);
+	}
+
+	public void ShowTurnAnimation(bool IsPlayerTurn)
+    {
+		if (IsPlayerTurn) StartCoroutine(TurnPlayerEnum());
+		else StartCoroutine(TurnDragonEnum());
 	}
 
 	//pokazywanie

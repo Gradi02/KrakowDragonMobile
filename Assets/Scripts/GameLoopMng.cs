@@ -13,6 +13,7 @@ public class GameLoopMng : MonoBehaviour
     [SerializeField] private Transform goldIncomeSpawner;
     [SerializeField] private GameObject incomePref;
     [SerializeField] private GameObject startCanva;
+    [SerializeField] private Animations anim;
     //====================
 
     public CardsScriptableObject DragonCard, CastleCard;
@@ -64,6 +65,8 @@ public class GameLoopMng : MonoBehaviour
             CastleTile.GetComponent<TileInfo>().SetBlock(true);
             CastleTile.GetComponent<TileInfo>().SetCard(CastleCard);
         }
+
+        anim.ShowTurnAnimation(true);
     }
 
     public void GameOver()
@@ -87,19 +90,23 @@ public class GameLoopMng : MonoBehaviour
         {
             StartCoroutine(DragonMove());
         }
+        anim.ShowTurnAnimation(true);
     }
 
     private IEnumerator DragonMove()
     {
         blocker.SetActive(true);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.1f);
 
         //animacja ataku czy cos
 
         while (!queueM.IsPlayerToMove())
         {
+            blocker.SetActive(true);
+            anim.ShowTurnAnimation(false);
+            yield return new WaitForSeconds(3f);
             DragonTurn();
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(3f);
         }
 
         blocker.SetActive(false);
