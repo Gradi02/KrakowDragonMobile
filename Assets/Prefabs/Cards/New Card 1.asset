@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_name: knight
   card_desc: move along the map to deal damage
-  value: 10
+  value: 15
   move_price: 10
   attack_power: 3
   name_background: {fileID: 21300000, guid: 4c8531cf2506916449a5027cd65e24a0, type: 3}
   Icon: {fileID: 21300000, guid: 4c8531cf2506916449a5027cd65e24a0, type: 3}
   CardIcon: {fileID: 21300000, guid: 4c8531cf2506916449a5027cd65e24a0, type: 3}
+  dropChance: 5

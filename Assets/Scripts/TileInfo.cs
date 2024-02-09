@@ -57,6 +57,7 @@ public class TileInfo : MonoBehaviour
             {
 				Card_M.HideMoves();
 				Card_M.ShowMovesForPosition(new Vector2(posX,posY));
+				return;
             }
 			else
             {

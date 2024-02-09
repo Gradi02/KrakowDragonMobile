@@ -41,7 +41,7 @@ public class DragonAI : MonoBehaviour
         if (end) return;
 
         GradedTiles pickedmove = PickMove();
-        Debug.Log(pickedmove.move + " Pozycja: " + pickedmove.info.GetTilePosition() + " Ocena: " + pickedmove.grade + " pole: " + pickedmove.info.IfBlocked() + " ruchy: " + movesCounter++);
+        //Debug.Log(pickedmove.move + " Pozycja: " + pickedmove.info.GetTilePosition() + " Ocena: " + pickedmove.grade + " pole: " + pickedmove.info.IfBlocked() + " ruchy: " + movesCounter++);
 
         if (pickedmove.move)
         {
@@ -66,6 +66,18 @@ public class DragonAI : MonoBehaviour
         {
             pickedmove.info.DragonAttack();
         }
+
+
+        if (DragonHealth < 50 || Random.Range(0,3) == 1)
+        {
+            GradedTiles pickedmove2 = PickMove();
+
+            if (!pickedmove2.move)
+            {
+                pickedmove2.info.DragonAttack();
+            }
+        }
+
         GetComponent<Card_Manager>().AfterDragon();
     }
 
@@ -76,7 +88,7 @@ public class DragonAI : MonoBehaviour
         {
             GradedTiles[] gradedMoves = GetGradedMoves();
 
-            int rand = Random.Range(0, 10);
+            int rand = Random.Range(0, 6);
             if(rand < moveChance)
             {
                 moveChance = 0;
@@ -212,6 +224,14 @@ public class DragonAI : MonoBehaviour
         return gradedTiles;
     }
 
+    public bool CheckForPlayerWin()
+    {
+        if(DragonHealth < 0)
+        {
+            return true;
+        }
+        return false;
+    }
     private int CountOfCardOnMap(CardsScriptableObject card)
     {
         int count = 0;

@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class CardPreset : MonoBehaviour
 {
-	public CardsScriptableObject[] Cards;
 	public CardsScriptableObject Card;
 
 	public UnityEngine.UI.Image Icon;
@@ -15,7 +14,7 @@ public class CardPreset : MonoBehaviour
 	public TextMeshProUGUI Desc;
 	public TextMeshProUGUI Value;
 	public TextMeshProUGUI Move_value;
-
+	private Card_Manager manager;
 
 	public GameObject Activated;
 
@@ -23,8 +22,9 @@ public class CardPreset : MonoBehaviour
 
 	private void Awake()
 	{
-		int WhichCard = Random.Range(0, Cards.Length);
-		Card = Cards[WhichCard];
+		manager = GameObject.FindGameObjectWithTag("manager").GetComponent<Card_Manager>();
+
+		Card = manager.GetRandomCardFromPickedList();
 
 		Name.text = Card.card_name;
 		Desc.text = Card.card_desc;
