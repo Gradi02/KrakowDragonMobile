@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5160211944477426192}
   - component: {fileID: 3263826902312847552}
   - component: {fileID: -3323906190955357253}
+  - component: {fileID: 8087322290588917914}
   m_Layer: 5
   m_Name: Image
   m_TagString: tile
@@ -147,5 +148,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentCard: {fileID: 0}
   Card_M: {fileID: 0}
-  flame: {fileID: 21300000, guid: 492b9988436bd45049a9a6bc52ac8fb0, type: 3}
+  flame: {fileID: -171804265, guid: 2f46515bf035d454781214edea4bcc9b, type: 3}
   tileToMove: {fileID: 0}
+--- !u!95 &8087322290588917914
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1371091663987659805}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cea1a1e5177d36e4a87655d9ee45901d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
