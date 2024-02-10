@@ -20,4 +20,4 @@ MonoBehaviour:
   name_background: {fileID: 21300000, guid: 70141d51621e24facbca9196bbde84b4, type: 3}
   Icon: {fileID: 21300000, guid: 70141d51621e24facbca9196bbde84b4, type: 3}
   CardIcon: {fileID: 21300000, guid: 70141d51621e24facbca9196bbde84b4, type: 3}
-  dropChance: 5
+  dropChance: 1

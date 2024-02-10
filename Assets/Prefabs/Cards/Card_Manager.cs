@@ -272,6 +272,7 @@ public class Card_Manager : MonoBehaviour
 
 		GameObject inc = Instantiate(incomePref, Vector3.zero, Quaternion.identity, t.transform);
 		inc.transform.localPosition = Vector3.zero;
+		inc.transform.localScale = new Vector3(5, 5, 5);
 		inc.GetComponent<TextMeshProUGUI>().text = "+" + g;
 	}
 
@@ -291,7 +292,13 @@ public class Card_Manager : MonoBehaviour
                     {
 						inc += info.GetGoldCount();
 						Debug.Log("wytrwa³: " + inc);
-						tile.GetComponent<TileInfo>().RemoveCard();
+						info.RemoveCard();
+						info.TilePiggyAnimation();
+
+						GameObject incs = Instantiate(incomePref, Vector3.zero, Quaternion.identity, tile.transform);
+						incs.transform.localPosition = Vector3.zero;
+						incs.transform.localScale = new Vector3(5, 5, 5);
+						incs.GetComponent<TextMeshProUGUI>().text = "+30";
 					}
 				}
 			}

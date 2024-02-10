@@ -16,7 +16,8 @@ public class DragonAI : MonoBehaviour
     private int DragonHealth = 100;
     [SerializeField] private Slider hpslider;
     [SerializeField] private TextMeshProUGUI hptext;
-
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject bulletParent;
     private void Awake()
     {
         mng = GetComponent<GameLoopMng>();
@@ -65,6 +66,12 @@ public class DragonAI : MonoBehaviour
         else
         {
             pickedmove.info.DragonAttack();
+            GameObject b = Instantiate(bullet, transform.position, Quaternion.identity, bulletParent.transform);
+            b.transform.localPosition = GetComponent<Card_Manager>().GetDragonTile().transform.localPosition;
+            b.transform.localScale = new Vector3(2, 2, 2);
+            TestAnim ba = b.GetComponent<TestAnim>();
+            ba.tile = pickedmove.info.gameObject;
+            ba.FireToTile();
         }
 
 
@@ -75,6 +82,12 @@ public class DragonAI : MonoBehaviour
             if (!pickedmove2.move)
             {
                 pickedmove2.info.DragonAttack();
+                GameObject b = Instantiate(bullet, transform.position, Quaternion.identity, bulletParent.transform);
+                b.transform.localPosition = GetComponent<Card_Manager>().GetDragonTile().transform.localPosition;
+                b.transform.localScale = new Vector3(2, 2, 2);
+                TestAnim ba = b.GetComponent<TestAnim>();
+                ba.tile = pickedmove2.info.gameObject;
+                ba.FireToTile();
             }
         }
 

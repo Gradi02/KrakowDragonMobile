@@ -188,7 +188,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -0.33935547, y: -45.599976}
+  m_AnchoredPosition: {x: -0.33935547, y: -45.599854}
   m_SizeDelta: {x: 0, y: 374.8375}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &47165383
@@ -3504,6 +3504,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpslider: {fileID: 1916192881}
   hptext: {fileID: 1747755839}
+  bullet: {fileID: 7624058821936156150, guid: 58398ae5befbed543b6e92dc93b49e96, type: 3}
+  bulletParent: {fileID: 523660866}
 --- !u!114 &1436750480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3528,9 +3530,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 66b3c2d9a6e0775478e798b0c9fb9e4e, type: 2}
   - {fileID: 11400000, guid: 6329ca21e576c414caea1c6376a467db, type: 2}
   - {fileID: 11400000, guid: 014c5da9794ffb44aacfd38f149d0716, type: 2}
+  - {fileID: 11400000, guid: fbf4f0bd160e53442a1296b1572d4a20, type: 2}
   defaultColor: {r: 0.9490196, g: 0.83137256, b: 0.59607846, a: 0.78431374}
   moveColor: {r: 0.35686275, g: 0.6117647, b: 0.3976652, a: 0.78431374}
   attackColor: {r: 0.6320754, g: 0.10971874, b: 0.10971874, a: 0.78431374}
+  incomePref: {fileID: 1752236569941588232, guid: 2108535bfe2eef44ca8043f58344cb91, type: 3}
 --- !u!114 &1436750481
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -124,8 +124,6 @@ public class GameLoopMng : MonoBehaviour
         blocker.SetActive(true);
         yield return new WaitForSeconds(0.1f);
 
-        //animacja ataku czy cos
-
         while (!queueM.IsPlayerToMove())
         {
             anim.ShowTurnAnimation(false);

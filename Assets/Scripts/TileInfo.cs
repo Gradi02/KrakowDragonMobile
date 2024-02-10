@@ -135,6 +135,7 @@ public class TileInfo : MonoBehaviour
 		GetComponent<Image>().sprite = null;
 		tileToMove = null;
 		blockedTile = false;
+		collectedGold = 4;
 	}
 
 	public void DragonAttack()
@@ -162,6 +163,19 @@ public class TileInfo : MonoBehaviour
 				GetComponent<Animator>().enabled = false;
 			}
         }
+    }
+
+    [ContextMenu("test")]
+	public void TilePiggyAnimation()
+    {
+		StartCoroutine(PiggyAnim());
+    }
+
+	private IEnumerator PiggyAnim()
+    {
+		LeanTween.rotateLocal(gameObject, new Vector3(0, 0, 180), 2f).setEase(LeanTweenType.easeInOutBack);
+		yield return new WaitForSeconds(2f);
+		gameObject.transform.localRotation = Quaternion.identity;
     }
 
 	private void CheckForPiggyBank()
