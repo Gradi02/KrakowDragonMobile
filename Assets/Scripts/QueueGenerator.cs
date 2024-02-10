@@ -16,7 +16,7 @@ public class QueueGenerator : MonoBehaviour
     private const int queueCount = 7;
     private bool[] turns = new bool[queueCount]; //0-ty & 1-smok
     private Transform[] turnsIcons = new Transform[queueCount];
-
+    private int totalTurnsCounter = 0;
 
     
     
@@ -61,7 +61,8 @@ public class QueueGenerator : MonoBehaviour
 
         turns[queueCount-1] = PickNextTurn(queueCount - 1);
 
-
+        //aktualizacja zmiennej
+        totalTurnsCounter++;
 
         //aktualizacja ikon tury
         StartCoroutine(QueueUpdateAnimation());
@@ -81,7 +82,7 @@ public class QueueGenerator : MonoBehaviour
         }
 
         turnsIcons[queueCount - 1] = Instantiate(turns[queueCount - 1] == false ? queuePlayerTurnPrefab : queueDragonTurnPrefab, queueBar.position, Quaternion.identity, queueBar).transform;
-        mng.SetBlocker(false);
+        //mng.SetBlocker(false);
     }
 
     //Wylosuj now¹ ture
@@ -105,5 +106,10 @@ public class QueueGenerator : MonoBehaviour
         if (!turns[0]) return true;
 
         return false;
+    }
+
+    public int GetTotalTurnsCount()
+    {
+        return totalTurnsCounter;
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameLoopMng : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class GameLoopMng : MonoBehaviour
     [SerializeField] private Transform goldIncomeSpawner;
     [SerializeField] private GameObject incomePref;
     [SerializeField] private GameObject startCanva;
+    [SerializeField] private GameObject overCanva;
+    [SerializeField] private TextMeshProUGUI overCanvaTitle;
+    [SerializeField] private TextMeshProUGUI overCanvaSubTitle;
+    [SerializeField] private TextMeshProUGUI overCanvaNumber;
     [SerializeField] private Animations anim;
     //====================
 
@@ -69,9 +74,21 @@ public class GameLoopMng : MonoBehaviour
         anim.ShowTurnAnimation(true);
     }
 
+    [ContextMenu("end")]
     public void GameOver()
     {
-        Debug.Log("Lose");
+        blocker.SetActive(true);
+
+        overCanvaTitle.text = "Game Over!";
+        overCanvaSubTitle.text = "Defeated at round:";
+        overCanvaNumber.text = queueM.GetTotalTurnsCount().ToString();
+
+        LeanTween.moveLocal(overCanva, new Vector3(0, 0, 0), 2f).setEase(LeanTweenType.easeInOutSine);
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void PlayerMoved()
@@ -81,28 +98,34 @@ public class GameLoopMng : MonoBehaviour
         CalculateGoldIncome();
         manager.TowersShot();
 
-        if(GetComponent<DragonAI>().CheckForPlayerWin())
-        {
-            //win
-        }
 
         if (!queueM.IsPlayerToMove())
         {
             StartCoroutine(DragonMove());
         }
-        anim.ShowTurnAnimation(true);
+        else
+        {
+            anim.ShowTurnAnimation(true);
+        }
     }
 
+    public void Win()
+    {
+        blocker.SetActive(true);
+
+        overCanvaTitle.text = "You Won!";
+        overCanvaSubTitle.text = "Krakow saved at round:";
+        overCanvaNumber.text = queueM.GetTotalTurnsCount().ToString();
+
+        LeanTween.moveLocal(overCanva, new Vector3(0, 0, 0), 2f).setEase(LeanTweenType.easeInOutSine);
+    }
     private IEnumerator DragonMove()
     {
         blocker.SetActive(true);
         yield return new WaitForSeconds(0.1f);
 
-        //animacja ataku czy cos
-
         while (!queueM.IsPlayerToMove())
         {
-            blocker.SetActive(true);
             anim.ShowTurnAnimation(false);
             yield return new WaitForSeconds(3f);
             DragonTurn();

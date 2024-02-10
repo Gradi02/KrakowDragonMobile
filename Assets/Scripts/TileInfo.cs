@@ -16,6 +16,29 @@ public class TileInfo : MonoBehaviour
 	private int posX=0, posY=0;
 	public GameObject tileToMove = null;
 
+	//Piggy bank
+	private int collectedGold = 4;
+	private int incomePerRound = 2;
+	private int maxGold = 20;
+	private int bonus = 10;
+
+	public bool UpdatePiggyBank()
+	{
+		collectedGold += incomePerRound;
+
+		if (collectedGold >= maxGold)
+		{
+			collectedGold += bonus;
+			return true;
+		}
+		return false;
+	}
+
+	public int GetGoldCount()
+	{
+		return collectedGold;
+	}
+
 	private void Awake()
     {
 		Card_M = GameObject.FindGameObjectWithTag("manager").GetComponent<Card_Manager>();
@@ -111,16 +134,19 @@ public class TileInfo : MonoBehaviour
 		currentCard = null;
 		GetComponent<Image>().sprite = null;
 		tileToMove = null;
-    }
+		blockedTile = false;
+		collectedGold = 4;
+	}
 
 	public void DragonAttack()
     {
+		CheckForPiggyBank();
 		RemoveCard();
 		blockedTile = true;
 		GetComponent<Image>().sprite = flame;
 		GetComponent<Animator>().enabled = true;
 		GetComponent<Animator>().SetBool("fire", true);
-		disabledTime = 4;
+		disabledTime = 5;
 	}
 
 	public void DisableCountDown()
@@ -137,6 +163,31 @@ public class TileInfo : MonoBehaviour
 				GetComponent<Animator>().enabled = false;
 			}
         }
+    }
+
+    [ContextMenu("test")]
+	public void TilePiggyAnimation()
+    {
+		StartCoroutine(PiggyAnim());
+    }
+
+	private IEnumerator PiggyAnim()
+    {
+		LeanTween.rotateLocal(gameObject, new Vector3(0, 0, 180), 2f).setEase(LeanTweenType.easeInOutBack);
+		yield return new WaitForSeconds(2f);
+		gameObject.transform.localRotation = Quaternion.identity;
+    }
+
+	private void CheckForPiggyBank()
+    {
+		if (currentCard != null)
+		{
+			if (currentCard.card_name == "piggy bank")
+			{
+				Debug.Log("smok zajeba³ piggy - " + GetGoldCount());
+				Card_M.AddGold(GetGoldCount(), this);
+			}
+		}
     }
 
 	public bool IfBlocked()

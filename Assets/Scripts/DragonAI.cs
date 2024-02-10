@@ -12,11 +12,12 @@ public class DragonAI : MonoBehaviour
     private Vector2[] moves = new Vector2[4];
     private int moveChance = 5;
     private bool end = false;
-    private int movesCounter = 0;
+    //private int movesCounter = 0;
     private int DragonHealth = 100;
     [SerializeField] private Slider hpslider;
     [SerializeField] private TextMeshProUGUI hptext;
-
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject bulletParent;
     private void Awake()
     {
         mng = GetComponent<GameLoopMng>();
@@ -65,6 +66,12 @@ public class DragonAI : MonoBehaviour
         else
         {
             pickedmove.info.DragonAttack();
+            GameObject b = Instantiate(bullet, transform.position, Quaternion.identity, bulletParent.transform);
+            b.transform.localPosition = GetComponent<Card_Manager>().GetDragonTile().transform.localPosition;
+            b.transform.localScale = new Vector3(2, 2, 2);
+            TestAnim ba = b.GetComponent<TestAnim>();
+            ba.tile = pickedmove.info.gameObject;
+            ba.FireToTile();
         }
 
 
@@ -75,6 +82,12 @@ public class DragonAI : MonoBehaviour
             if (!pickedmove2.move)
             {
                 pickedmove2.info.DragonAttack();
+                GameObject b = Instantiate(bullet, transform.position, Quaternion.identity, bulletParent.transform);
+                b.transform.localPosition = GetComponent<Card_Manager>().GetDragonTile().transform.localPosition;
+                b.transform.localScale = new Vector3(2, 2, 2);
+                TestAnim ba = b.GetComponent<TestAnim>();
+                ba.tile = pickedmove2.info.gameObject;
+                ba.FireToTile();
             }
         }
 
@@ -201,11 +214,25 @@ public class DragonAI : MonoBehaviour
 
                 if (dist <= 3)
                 {
-                    gradedTiles[i].grade += 2;
+                    if (mapTiles[i].currentCard != null)
+                    {
+                        gradedTiles[i].grade += 10;
+                    }
+                    else
+                    {
+                        gradedTiles[i].grade += 2;
+                    }
                 }
                 else if (dist <= 5)
                 {
-                    gradedTiles[i].grade += 1;
+                    if (mapTiles[i].currentCard != null)
+                    {
+                        gradedTiles[i].grade += 5;
+                    }
+                    else
+                    {
+                        gradedTiles[i].grade += 1;
+                    }
                 }          
 
                 //oceñ iloœæ danego typu karty
@@ -214,7 +241,7 @@ public class DragonAI : MonoBehaviour
 
                 if (count > 1)
                 {
-                    gradedTiles[i].grade += count;
+                    gradedTiles[i].grade += 2*count;
                 }
             }
         }
@@ -296,7 +323,7 @@ public class DragonAI : MonoBehaviour
                 {
                     if(gradedTiles[i].info.currentCard.card_name == "Castle")
                     {
-                        gradedTiles[i].grade = 10;
+                        gradedTiles[i].grade = 15;
                     }
                 }
             }
@@ -326,6 +353,11 @@ public class DragonAI : MonoBehaviour
     {
         DragonHealth -= n;
         UpdateDragonHpStats();
+
+        if(DragonHealth <= 0)
+        {
+            mng.Win();
+        }
     }
 
     public void AddMapTile(TileInfo Ntile)

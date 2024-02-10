@@ -5,12 +5,18 @@ using UnityEngine;
 
 public class TestAnim : MonoBehaviour
 {
-    public GameObject bullet;
+    private GameObject bullet;
     public GameObject tile;
+
+    private void Awake()
+    {
+        bullet = gameObject;
+    }
     public void FireToTile()
     {
-		Vector3 TilePos = new Vector3(tile.transform.position.x, tile.transform.position.y, 0);
-		LeanTween.moveLocal(bullet, TilePos, 3f).setEase(LeanTweenType.easeInSine); 
+		Vector3 TilePos = new Vector3(tile.transform.localPosition.x, tile.transform.localPosition.y, 0);
+		LeanTween.moveLocal(bullet, TilePos, 1.5f);
+        Destroy(bullet, 1.5f);
     }
 
 }
