@@ -43,6 +43,7 @@ public class Animations : MonoBehaviour
 		Hide();
 		yield return new WaitForSeconds(time+0.05f);
 		menu.SetActive(false);
+		GetComponent<GameLoopMng>().SetBlocker(false);
 	}
 
 	//tura smoka anim

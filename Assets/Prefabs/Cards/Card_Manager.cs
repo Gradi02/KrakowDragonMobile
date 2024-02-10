@@ -9,7 +9,7 @@ public class Card_Manager : MonoBehaviour
 {
 	public int currentGoldCount = 10;
 	private int cardCost = 15;
-	private int mineIncomeForRound = 1;
+	private int mineIncomeForRound = 3;
 	private int defaultIncome = 2;
 	[SerializeField] private TextMeshProUGUI goldText;
 	public QueueGenerator queueM;
@@ -28,6 +28,7 @@ public class Card_Manager : MonoBehaviour
 	public Color defaultColor;
 	public Color moveColor;
 	public Color attackColor;
+	[SerializeField] private GameObject incomePref;
 
 	public void Start()
 	{
@@ -259,9 +260,43 @@ public class Card_Manager : MonoBehaviour
         }
 
 		int income = num * mineIncomeForRound + defaultIncome;
+		income += CheckForBank();
 		//currentGoldCount += income;
 		StartCoroutine(GoldAnimation(income));
 		return income;
+	}
+
+	public void AddGold(int g, TileInfo t)
+    {
+		StartCoroutine(GoldAnimation(g));
+
+		GameObject inc = Instantiate(incomePref, Vector3.zero, Quaternion.identity, t.transform);
+		inc.transform.localPosition = Vector3.zero;
+		inc.GetComponent<TextMeshProUGUI>().text = "+" + g;
+	}
+
+	private int CheckForBank()
+    {
+		int inc = 0;
+		foreach (GameObject tile in ListOfTiles)
+		{
+			TileInfo info = tile.GetComponent<TileInfo>();
+
+			if (info.currentCard != null)
+			{
+				if (info.currentCard.card_name == "piggy bank")
+				{
+					bool destroy = info.UpdatePiggyBank();
+					if(destroy)
+                    {
+						inc += info.GetGoldCount();
+						Debug.Log("wytrwa³: " + inc);
+						tile.GetComponent<TileInfo>().RemoveCard();
+					}
+				}
+			}
+		}
+		return inc;
 	}
 
 	private IEnumerator GoldAnimation(int income)

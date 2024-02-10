@@ -12,7 +12,7 @@ public class DragonAI : MonoBehaviour
     private Vector2[] moves = new Vector2[4];
     private int moveChance = 5;
     private bool end = false;
-    private int movesCounter = 0;
+    //private int movesCounter = 0;
     private int DragonHealth = 100;
     [SerializeField] private Slider hpslider;
     [SerializeField] private TextMeshProUGUI hptext;
@@ -201,11 +201,25 @@ public class DragonAI : MonoBehaviour
 
                 if (dist <= 3)
                 {
-                    gradedTiles[i].grade += 2;
+                    if (mapTiles[i].currentCard != null)
+                    {
+                        gradedTiles[i].grade += 10;
+                    }
+                    else
+                    {
+                        gradedTiles[i].grade += 2;
+                    }
                 }
                 else if (dist <= 5)
                 {
-                    gradedTiles[i].grade += 1;
+                    if (mapTiles[i].currentCard != null)
+                    {
+                        gradedTiles[i].grade += 5;
+                    }
+                    else
+                    {
+                        gradedTiles[i].grade += 1;
+                    }
                 }          
 
                 //oceñ iloœæ danego typu karty
@@ -214,7 +228,7 @@ public class DragonAI : MonoBehaviour
 
                 if (count > 1)
                 {
-                    gradedTiles[i].grade += count;
+                    gradedTiles[i].grade += 2*count;
                 }
             }
         }
@@ -296,7 +310,7 @@ public class DragonAI : MonoBehaviour
                 {
                     if(gradedTiles[i].info.currentCard.card_name == "Castle")
                     {
-                        gradedTiles[i].grade = 10;
+                        gradedTiles[i].grade = 15;
                     }
                 }
             }
@@ -326,6 +340,11 @@ public class DragonAI : MonoBehaviour
     {
         DragonHealth -= n;
         UpdateDragonHpStats();
+
+        if(DragonHealth <= 0)
+        {
+            mng.Win();
+        }
     }
 
     public void AddMapTile(TileInfo Ntile)
